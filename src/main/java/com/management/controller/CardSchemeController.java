@@ -23,7 +23,7 @@ public class CardSchemeController {
 	
 	@GetMapping("/card-scheme/verify/{card_no}")
 	@Produces(MediaType.APPLICATION_JSON)
-    public Response getCardDetails(@PathParam("card_no") Long cardNumber) {
+    public Response getCardDetails(@PathParam("card_no") String cardNumber) {
         System.out.println("chla chla");
         PayloadDto payloadDto = cardService.getCardDetails(cardNumber);
         Response response = Response.ok().entity(payloadDto).build();
