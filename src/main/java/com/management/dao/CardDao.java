@@ -1,9 +1,12 @@
 package com.management.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import com.management.entity.Card;
 
-public interface CardDao {
+@Repository
+public interface CardDao extends JpaRepository<Card, Long>{
 	
-	Card getCardDetails(Long card_number);
 
 }

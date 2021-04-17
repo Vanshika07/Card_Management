@@ -1,26 +1,31 @@
 package com.management.entity;
 
-import java.io.Serializable;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "card")
-public class Card implements Serializable{
+@Table(name = "Card")
+public class Card {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6184923107858451482L;
+
+	@Id
+	@Column 
+	private Long cardNumber;
 	
-	
-	private long cardNumber;
+	@Column 
 	private String scheme;
+	
+	@Column 
 	private String type;
+	
+	@Column 
 	private String bank;
 	
-	
+	public Card() {
+		
+	}
 	public long getCardNumber() {
 		return cardNumber;
 	}
