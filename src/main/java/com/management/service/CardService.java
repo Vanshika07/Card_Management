@@ -56,7 +56,7 @@ public class CardService {
 		
 	}
 
-	private boolean validateCardNumber(String card_number) {
+	public boolean validateCardNumber(String card_number) {
 		if (card_number.length() < 3 || Long.valueOf(card_number) == 0) {
 			return false;
 		}
