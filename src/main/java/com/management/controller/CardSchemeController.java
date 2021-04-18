@@ -1,20 +1,21 @@
 package com.management.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.management.dto.PayloadDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.management.dto.PayLoadDto;
+import com.management.dto.StatDto;
 import com.management.service.CardService;
 
 @RestController
@@ -26,25 +27,43 @@ public class CardSchemeController {
 	
 	@RequestMapping(value="/card-scheme/verify/{card_no}",method=RequestMethod.GET)
 	@Produces(MediaType.APPLICATION_JSON)
-    public Response getCardDetails(@PathVariable("card_no") Long cardNumber) {
+    public String getCardDetails(@PathVariable("card_no") Long cardNumber) throws JsonProcessingException {
         System.out.println("chla chla");
-        PayloadDto payloadDto = cardService.getCardDetails(cardNumber);
-        Response response = Response.ok().entity(payloadDto).build();
-        return response;
+        PayLoadDto payloadDto = cardService.getCardDetails(cardNumber);
+        ObjectMapper objectMapper = new ObjectMapper();
+        if(payloadDto == null)
+        {
+        	return "NO DATA FOUND";
+        }
+        else
+        	return objectMapper.writeValueAsString(payloadDto);
         
     }
 	
 	
-	@GetMapping(value = "/")
-    public ModelAndView homesPage(Model model) {
-        System.out.println("chla chla");
-        return new ModelAndView("index");
+	@RequestMapping(value="/card-scheme/stats",method=RequestMethod.GET)
+	@Produces(MediaType.APPLICATION_JSON)
+    public String getNoOfHits(final HttpServletRequest request) throws JsonProcessingException {
+		String start = request.getParameter("start");
+		String limit = request.getParameter("limit");
+		ObjectMapper objectMapper = new ObjectMapper();
+        StatDto payload = cardService.getstats(Integer.valueOf(start), Integer.valueOf(limit));
+        if(payload == null)
+        {
+        	return "NO DATA FOUND";
+        }
+        else {
+        	return objectMapper.writeValueAsString(payload);
+        }
+    
+        
     }
 	
-	@GetMapping(value = "/lala/{ab}")
-    public String homePage(@PathVariable("ab") String ab) {
-        System.out.println("chla chla");
-        return ab;
+	@RequestMapping(value = "/")
+    public String homesPage(Model model) {
+        return "index";
     }
+	
+
 
 }

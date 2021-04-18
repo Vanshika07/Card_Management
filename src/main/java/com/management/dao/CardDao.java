@@ -1,12 +1,15 @@
 package com.management.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.management.entity.Card;
 
 @Repository
-public interface CardDao extends JpaRepository<Card, Long>{
+public interface CardDao {
 	
-
+	Card findById(Long id);
+	
+	List<Object[]> findAll(int st,int lt);
 }

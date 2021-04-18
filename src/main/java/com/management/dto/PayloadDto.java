@@ -1,43 +1,43 @@
 package com.management.dto;
+
 import java.io.Serializable;
 
-public class PayloadDto implements Serializable{
-	
+public class PayLoadDto implements Serializable{
+
+	@Override
+	public String toString() {
+		return "PayLoadDto [success=" + success + ", payload=" + payload + "]";
+	}
+
+	public PayLoadDto(boolean success, CardDto payload) {
+		super();
+		this.success = success;
+		this.payload = payload;
+	}
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 8086293620947369481L;
-	private String scheme;
-	private String type;
-	private String bank;
+	private static final long serialVersionUID = 6968498781883073078L;
 	
+	private boolean success;
 	
-	public PayloadDto(String scheme, String type, String bank) {
-		super();
-		this.scheme = scheme;
-		this.type = type;
-		this.bank = bank;
+	private CardDto payload;
+
+	public boolean isSuccess() {
+		return success;
 	}
-	
-	
-	public String getScheme() {
-		return scheme;
+
+	public void setSuccess(boolean success) {
+		this.success = success;
 	}
-	public void setScheme(String scheme) {
-		this.scheme = scheme;
+
+	public CardDto getPayload() {
+		return payload;
 	}
-	public String getType() {
-		return type;
+
+	public void setPayload(CardDto payload) {
+		this.payload = payload;
 	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	public String getBank() {
-		return bank;
-	}
-	public void setBank(String bank) {
-		this.bank = bank;
-	}
-	
 
 }
